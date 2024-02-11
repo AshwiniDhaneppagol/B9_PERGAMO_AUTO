@@ -10,14 +10,14 @@ Feature: User login functionality
     Then "ORDER HISTORY" page should be displayed.
 
   Scenario Outline: Error message is displayed when the user incorrectly fills in or does not fill in the required field.
-    When  User enter invalid or empty data in "<email>" and "<password>"
+    And  User enter invalid or empty data in "<email>" and "<password>"
     And User click on ANMELDUNG button.
-    Then "ORDER HISTORY" page should not be displayed.
+    Then The user should be able to see "<error>" message
+
     Examples:
-      | email                 | password    |
-      | TestAccount@gmail.com | Test@       |
-      | TestAccount@gmail     | Test@1234   |
-      | TestAccount@          | Test@1234   |
-      | TestAccount@gmail.com |             |
-      |                       | Test@1234   |
+      | email                 | password    | error                                                                 |
+      | TestAccount@          | Test@1234   | Please enter a part following '@'. 'TestAccount@' is incomplete.      |
+      |                       |             | Please fill out this field.                                           |
+      | Test                  | userone1234 | Please include an '@' in the email address. 'Test' is missing an '@'. |
+      | TestAccount@gmail.com | Test@       | Please fill out this field.                                           |
 
