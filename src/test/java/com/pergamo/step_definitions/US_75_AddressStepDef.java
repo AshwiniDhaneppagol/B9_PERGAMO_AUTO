@@ -3,10 +3,12 @@ package com.pergamo.step_definitions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
-import pages.US_75_AddressPage;
+import com.pergamo.pages.US_75_AddressPage;
+
 
 public class US_75_AddressStepDef {
     US_75_AddressPage us_06_addressPage=new US_75_AddressPage();
+
 
     @Then("Der Benutzer klickt auf die Account button")
     public void derBenutzerKlicktAufDieAccountButton() {
@@ -50,6 +52,17 @@ public class US_75_AddressStepDef {
     public void derBenutzerSollteEineWarnungErhaltenWennErDieAdresseLöschenMöchte(String expectedMessage) {
         us_06_addressPage.remove3.click();
         Assert.assertEquals(expectedMessage,us_06_addressPage.getPopUpText());
+    }
+
+
+    @Then("Geben Sie die Adresse {string} in das E-Mail-Feld ein.")
+    public void gebenSieDieAdresseInDasEMailFeldEin(String email) {
+        us_06_addressPage.emailInput.sendKeys(email);
+    }
+
+    @And("Geben Sie die Adresse {string} in das Passwort-Feld ein.")
+    public void gebenSieDieAdresseInDasPasswortFeldEin(String passwort) {
+        us_06_addressPage.passwordInput.sendKeys(passwort);
     }
 }
 

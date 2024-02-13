@@ -8,78 +8,70 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 public class Driver {
+
     private Driver() {
     }
-    // InheritableThreadLocal  --> this is like a container, bag, pool.
-    // in this pool we can have separate objects for each thread
-    // for each thread, in InheritableThreadLocal we can have separate object for that thread
-    // driver class will provide separate webdriver object per thread
-    private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
-    public static WebDriver get(){
-        //if this thread doesn't have driver - create it and add to pool
-        if (driverPool.get() == null) {
-//            if we pass the driver from terminal then use that one
-//           if we do not pass the driver from terminal then use the one properties file
-            String browser = System.getProperty("browser") != null ? browser = System.getProperty("browser") : ConfigurationReader.get("browser");
-            switch (browser) {
-                case "chrome":
 
-                    driverPool.set(new ChromeDriver());
+    public static WebDriver driver;
+
+    public static WebDriver get() {
+        String browser = ConfigurationReader.get("browser");
+        if (driver == null) {
+            switch (browser.toLowerCase()) {
+                case "chrome": // Chrome - CHROME - cHROME
+                    // WebDriverManager.chromedriver().setup(); // use only selenium-java => before version 4.6... after delete this line
+                    driver = new ChromeDriver();  // polly
                     break;
                 case "chrome-headless":
-
-                    driverPool.set(new ChromeDriver(new ChromeOptions().setHeadless(true)));
+                    //WebDriverManager.chromedriver().setup();
+                    //  driver = new ChromeDriver(new ChromeOptions().setHeadless(true));
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080");
+                    driver = new ChromeDriver(options);
                     break;
                 case "firefox":
-
-                    driverPool.set(new FirefoxDriver());
+                    // WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
                     break;
                 case "firefox-headless":
-
-                    driverPool.set(new FirefoxDriver(new FirefoxOptions().setHeadless(true)));
+                    // WebDriverManager.firefoxdriver().setup();
+                    //  driver = new FirefoxDriver(new FirefoxOptions().setHeadless(true));
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.addArguments("--headless");
+                    driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case "ie":
                     if (!System.getProperty("os.name").toLowerCase().contains("windows"))
                         throw new WebDriverException("Your OS doesn't support Internet Explorer");
-
-                    driverPool.set(new InternetExplorerDriver());
+                    // WebDriverManager.iedriver().setup();
+                    driver = new InternetExplorerDriver();
                     break;
+
                 case "edge":
                     if (!System.getProperty("os.name").toLowerCase().contains("windows"))
                         throw new WebDriverException("Your OS doesn't support Edge");
-
-                    driverPool.set(new EdgeDriver());
+                    //WebDriverManager.edgedriver().setup();
+                    driver = new EdgeDriver();
                     break;
+
                 case "safari":
                     if (!System.getProperty("os.name").toLowerCase().contains("mac"))
                         throw new WebDriverException("Your OS doesn't support Safari");
-
-                    driverPool.set(new SafariDriver());
+                    //WebDriverManager.getInstance(SafariDriver.class).setup();
+                    driver = new SafariDriver();
                     break;
-                case "remote_chrome":
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    //   chromeOptions.setCapability("platform", Platform.ANY); if you are using selenium 3 jar file , use this line
-
-                    try{
-                        //  driverPool.set(new RemoteWebDriver(new URL("http://52.203.177.139:4444/wd/hub"),chromeOptions));
-                        driverPool.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),chromeOptions));
-                    }catch (MalformedURLException e){
-                        e.printStackTrace();
-                    }
-
             }
+
         }
-        return driverPool.get();
+        return driver;
     }
-    public static void closeDriver() {
-        driverPool.get().quit();
-        driverPool.remove();
+    public  static void closeDriver(){
+        if(driver!=null){
+            driver.quit();
+            driver=null;
+        }
     }
 }

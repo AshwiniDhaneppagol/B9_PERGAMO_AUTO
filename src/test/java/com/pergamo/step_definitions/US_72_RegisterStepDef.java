@@ -76,7 +76,23 @@ public class US_72_RegisterStepDef {
 
     @Given("Der Benutzer gibt {string} als Passwort ein")
     public void der_benutzer_gibt_als_passwort_ein(String password2) {
+        registerPage.nameFirmaField.sendKeys("Netto");
+        registerPage.straßenadresseField.sendKeys("Berliner Straße");
+        registerPage.apartmentField.sendKeys("11");
+        registerPage.stadtField.sendKeys("Köln");
+        registerPage.selectCountry("Deutschland");
+        registerPage.postleitzahlField.sendKeys("34654");
+        registerPage.nächsteButton.click();
+        registerPage.neinBox.click();
+        registerPage.ichStimmeBox.click();
+        registerPage.nächsteButton.click();
+        registerPage.vornameInput.sendKeys("Ali");
+        registerPage.nachnameInput.sendKeys("Yilmaz");
+        registerPage.telefonnummerInput.sendKeys("017682012323");
+        registerPage.emailAdresseInput.sendKeys("rtwtkali@gmail.com");
+        registerPage.emailAdresseBestätigenInput.sendKeys("rtwtkali@gmail.com");
         registerPage.passwortInput2.sendKeys(password2);
+        registerPage.bestätigePasswortInput.click();
 
     }
 
@@ -100,9 +116,9 @@ public class US_72_RegisterStepDef {
         registerPage.nächsteButton.click();
         registerPage.vornameInput.sendKeys("Ali");
         registerPage.nachnameInput.sendKeys("Yilmaz");
-        registerPage.telefonnummerInput.sendKeys("017682014123");
-        registerPage.emailAdresseInput.sendKeys("twtkali@gmail.com");
-        registerPage.emailAdresseBestätigenInput.sendKeys("twtkali@gmail.com");
+        registerPage.telefonnummerInput.sendKeys("017682012323");
+        registerPage.emailAdresseInput.sendKeys("rtwtkali@gmail.com");
+        registerPage.emailAdresseBestätigenInput.sendKeys("rtwtkali@gmail.com");
         registerPage.passwortInput2.sendKeys("Ali12345");
         registerPage.bestätigePasswortInput.sendKeys("Ali12345");
         registerPage.benutzerkontoErstellenBtn2.click();

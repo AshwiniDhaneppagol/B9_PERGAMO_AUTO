@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/Features",
         glue = "com/pergamo/step_definitions",
         dryRun = false,
-        tags = ""
+        tags = "@B9PR-89"
 )
 public class CukesRunner {
 

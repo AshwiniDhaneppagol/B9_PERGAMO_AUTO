@@ -1,7 +1,7 @@
-package pages;
+package com.pergamo.pages;
 
 
-import com.pergamo.pages.BasePage;
+
 import com.pergamo.utilities.BrowserUtils;
 import com.pergamo.utilities.Driver;
 import org.openqa.selenium.By;

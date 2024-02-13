@@ -3,11 +3,13 @@ package com.pergamo.step_definitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.US_74_HomePage;
+import com.pergamo.pages.US_74_HomePage;
+
 
 
 public class US_74_HomeStepDef {
     US_74_HomePage homePage=new US_74_HomePage();
+
 
     @When("Geben Sie die Adresse {string} in das E-Mail-Feld ein")
     public void geben_sie_die_adresse_in_das_e_mail_feld_ein(String email) {

@@ -1,4 +1,4 @@
-package pages;
+package com.pergamo.pages;
 
 
 import com.pergamo.pages.BasePage;
@@ -9,6 +9,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class US_75_AddressPage extends BasePage {
+    @FindBy(xpath = "//input[@id='customer_email']")
+    public WebElement emailInput;
+
+    @FindBy(id = "customer_password")
+    public WebElement passwordInput;
+
     @FindBy(xpath = "//span[text()='Addresses']")
     public WebElement addressBtn;
 
