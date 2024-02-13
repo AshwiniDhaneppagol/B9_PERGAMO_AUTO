@@ -7,6 +7,7 @@ Feature: Search Icon function
     And User enters valid email and password as "TestAccount@gmail.com" and "Test@1234"
     And User click on ANMELDUNG button.
 
+
   @B9PR-110
   Scenario: Verify that the product is displayed when the user searches for the item on the website
     When User enter product name in search box
