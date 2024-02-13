@@ -1,14 +1,17 @@
+@B9PR-71
 Feature: User login functionality
 
   Background:
     Given User is in Pergamo application Homepage
     When User click on Einloggen Icon in the Pergamo homepage.
 
+  @B9PR-105
   Scenario: User can log in by entering the correct information
     And User enters valid email and password as "TestAccount@gmail.com" and "Test@1234"
     And User click on ANMELDUNG button.
     Then "ORDER HISTORY" page should be displayed.
 
+  @B9PR-106
   Scenario Outline: Error message is displayed when the user incorrectly fills in or does not fill in the required field.
     And  User enter invalid or empty data in "<email>" and "<password>"
     And User click on ANMELDUNG button.
